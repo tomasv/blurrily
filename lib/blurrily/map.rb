@@ -40,8 +40,8 @@ module Blurrily
     def normalize_string(needle)
       result = needle.downcase
       unless result =~ /^([a-z ])+$/
-        result = ActiveSupport::Multibyte::Chars.new(result).mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/,'').to_s.gsub(/[^a-z]/,' ')
-        # result = result.mb_chars.normalize(:kd).gsub(/[^\x00-\x7F]/,'').to_s.gsub(/[^a-z]/,' ')
+        result = ActiveSupport::Multibyte::Chars.new(result).mb_chars.unicode_normalize(:nfkd).gsub(/[^\x00-\x7F]/,'').to_s.gsub(/[^a-z]/,' ')
+        # result = result.mb_chars.unicode_normalize(:nfkd).gsub(/[^\x00-\x7F]/,'').to_s.gsub(/[^a-z]/,' ')
       end
       result.gsub(/\s+/,' ').strip
     end
